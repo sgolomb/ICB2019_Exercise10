@@ -27,11 +27,11 @@ Mt[1]=M0
 
 #simulate normal tumor growth sensitive to drug
 for(t in 1:(timesteps-1)){
-  Nt[t+1] <- Nt[t]+(rN)*(Nt)*(1-((Nt+Mt)/K))
+  Nt[t+1] <- Nt[t]+(rN)*(Nt[t])*(1-((Nt[t]+Mt[t])/K))
 }
 #simulate mutant tumor growth resistant to drug
 for(t in 1:(timesteps-1)){
-  Mt[t+1] <- Mt[t]+(rM)*(Mt)*(1-((Nt+Mt)/K))
+  Mt[t+1] <- Mt[t]+(rM)*(Mt[t])*(1-((Nt[t]+Mt[t])/K))
 }
 
 #plot normal tumor growth simulation
@@ -43,4 +43,5 @@ ggplot(data=tumor_growth)+geom_line(aes(x=time, y=N), col='black')+
 simNTumor <- data.frame(time=1:length(Nt), N=Nt)
 simMTumor <- data.frame(time=1:length(Mt), M=Mt)
 ggplot(data=simNTumor,aes(x=time, y=N))+geom_line()+theme_classic()
+ggplot(data=simMTumor,aes(x=time, y=M))+geom_line()+theme_classic()
 
